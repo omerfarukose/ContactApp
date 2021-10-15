@@ -54,7 +54,7 @@
                                     <constraint firstAttribute="height" constant="50" id="HB5-Ug-CGo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6po-Tt-xXT">
                                 <rect key="frame" x="44" y="454" width="326" height="50"/>
@@ -84,7 +84,7 @@
                                     <constraint firstAttribute="height" constant="50" id="l6f-CJ-UjS"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eZg-vW-qeJ"/>
@@ -114,6 +114,7 @@
                         <outlet property="imageView" destination="xCq-Px-FsK" id="wVf-Cf-uQb"/>
                         <outlet property="lastNameField" destination="wlQ-3y-dcd" id="y7e-DD-3lN"/>
                         <outlet property="numberField" destination="6po-Tt-xXT" id="Kuf-3r-Lsh"/>
+                        <outlet property="saveButton" destination="Md1-mW-cvU" id="mv8-EK-S1g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aKZ-t0-8hS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -14,22 +14,37 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var numberField: UITextField!
+    @IBOutlet weak var saveButton: UIButton!
     
     var chosenFirstName = ""
     var chosenLastName = ""
     var chosenNumber = ""
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "Create Person"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        saveButton.isHidden = false
+        
         if chosenFirstName != " "{
+            saveButton.isHidden = true
+            firstNameField.isUserInteractionEnabled = false
+            lastNameField.isUserInteractionEnabled = false
+            numberField.isUserInteractionEnabled = false
             firstNameField.text = chosenFirstName
             lastNameField.text = chosenLastName
             numberField.text = chosenNumber
         }
+    }
+    
+    @objc func editPerson(){
         
-        navigationItem.title = "Create Person"
     }
 
     @IBAction func saveButtonClicked(_ sender: Any) {

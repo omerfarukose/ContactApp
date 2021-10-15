@@ -14,7 +14,7 @@ class ViewController: UIViewController , UITableViewDelegate , UITableViewDataSo
     var lastNameArray = [String]()
     var numberArray = [String]()
     
-    var chosenFirstName = ""
+    var chosenFirstName = " "
     var chosenLastName = ""
     var chosenNumber = ""
     
@@ -41,7 +41,6 @@ class ViewController: UIViewController , UITableViewDelegate , UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        print("First Name Count : \(firstNameArray.count)  ,   Last Name Count : \(lastNameArray.count)")
         cell.textLabel?.text = "\(firstNameArray[indexPath.row]) \(lastNameArray[indexPath.row])"
         // " \(firstNameArray[indexPath.row] + lastNameArray[indexPath.row])"
         return cell
@@ -51,6 +50,53 @@ class ViewController: UIViewController , UITableViewDelegate , UITableViewDataSo
         chosenFirstName = firstNameArray[indexPath.row]
         chosenLastName = lastNameArray[indexPath.row]
         chosenNumber = numberArray[indexPath.row]
+        performSegue(withIdentifier: "toDetailsVC", sender: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Persons")
+            
+            let number = numberArray[indexPath.row]
+            fetchRequest.predicate = NSPredicate(format: "number =%@", number)
+            
+            fetchRequest.returnsObjectsAsFaults = false
+            
+            do{
+                let results = try context.fetch(fetchRequest)
+                if results.count > 0 {
+                    for result in results as! [NSManagedObject] {
+                        if let getNumber = result.value(forKey: "number") as? String {
+                            if getNumber ==  numberArray[indexPath.row]{
+                                context.delete(result)
+                                numberArray.remove(at: indexPath.row)
+                                firstNameArray.remove(at: indexPath.row)
+                                lastNameArray.remove(at: indexPath.row)
+                                tableView.reloadData()
+                                do{
+                                    try context.save()
+                                }catch{
+                                    print("Error !")
+                                }
+                                break
+                            }
+                        }
+                    }
+                }
+                    
+            }catch{
+                print("Error !")
+            }
+            
+            
+        }
+    }
+    
+    @objc func addPerson(){
+        chosenFirstName = " "
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
     }
     
@@ -124,9 +170,7 @@ class ViewController: UIViewController , UITableViewDelegate , UITableViewDataSo
         tableView.reloadData()
     }
     
-    @objc func addPerson(){
-        performSegue(withIdentifier: "toDetailsVC", sender: nil)
-    }
+    
 
 }
 
