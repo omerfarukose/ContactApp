@@ -14,7 +14,8 @@ class ViewController: UIViewController , UITableViewDelegate , UITableViewDataSo
     var lastNameArray = [String]()
     var numberArray = [String]()
     
-    var chosenName = ""
+    var chosenFirstName = ""
+    var chosenLastName = ""
     var chosenNumber = ""
     
     @IBOutlet weak var tableView: UITableView!
@@ -27,7 +28,6 @@ class ViewController: UIViewController , UITableViewDelegate , UITableViewDataSo
         
         navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPerson))
         navigationItem.title = "Contacts"
-        
         getData()
     }
     
@@ -48,8 +48,8 @@ class ViewController: UIViewController , UITableViewDelegate , UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var space = " "
-        chosenName = "\(firstNameArray[indexPath.row] + space + lastNameArray[indexPath.row])"
+        chosenFirstName = firstNameArray[indexPath.row]
+        chosenLastName = lastNameArray[indexPath.row]
         chosenNumber = numberArray[indexPath.row]
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
     }
@@ -57,7 +57,8 @@ class ViewController: UIViewController , UITableViewDelegate , UITableViewDataSo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailsVC" {
             let destinationVC = segue.destination as? DetailsViewController
-            destinationVC?.chosenName = chosenName
+            destinationVC?.chosenFirstName = chosenFirstName
+            destinationVC?.chosenLastName = chosenLastName
             destinationVC?.chosenNumber = chosenNumber
         }
     }

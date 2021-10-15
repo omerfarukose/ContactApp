@@ -15,18 +15,17 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var numberField: UITextField!
     
-    var chosenName = " "
+    var chosenFirstName = ""
+    var chosenLastName = ""
     var chosenNumber = ""
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("CHOSEN NAME: \(chosenName)")
-        print("CHOSEN NUMBER: \(chosenNumber)")
-        
-        if chosenName != " "{
-            firstNameField.text = chosenName
+        if chosenFirstName != " "{
+            firstNameField.text = chosenFirstName
+            lastNameField.text = chosenLastName
             numberField.text = chosenNumber
         }
         
